@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>JavaScript Form Validation using a sample registration form</title>
+
+<link rel='stylesheet' href='js-form-validation.css' type='text/css' />
+<script>
+function formValidation()
+{
+
+var uname = document.registration.username;
+
+var umsex = document.registration.msex;
+var ufsex = document.registration.fsex;
+
+if(allLetter(uname))
+{
+
+if(validsex(umsex,ufsex))
+{
+}
+}
+
+return false;
+}
+function allLetter(uname)
+{
+var letters = /^[A-Za-z]+$/;
+if(uname.value.match(letters))
+{
+return true;
+}
+else
+{
+alert('Username must have alphabet characters only');
+uname.focus();
+return false;
+}
+}
+function validsex(umsex,ufsex)
+{
+x=0;
+
+if(umsex.checked)
+{
+x++;
+} if(ufsex.checked)
+{
+x++;
+}
+if(x==0)
+{
+alert('Select Male/Female');
+umsex.focus();
+return false;
+}
+else
+{
+alert('Form Successfully Submitted');
+window.location.reload()
+return true;
+}
+}
+</script>
+</head>
+<body >
+<script>
+     $(document).ready(function () {
+         $.ajax({
+             type: "POST",
+             url: "DataService.asmx/GetData",
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 var names = response.data;
+                 alert(names);
+             },
+             failure: function (response) {
+                 alert(response.data);
+             }
+         });
+     });
+	 </script>
+
+
+<script type="text/javascript" charset="utf-8">
+$(function(){
+  $("select#ctlJob").change(function(){
+    $.getJSON("/select.php",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+      for (var i = 0; i < j.length; i++) {
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+      }
+      $("select#ctlPerson").html(options);
+    })
+  })
+})
+</script>
+<h1>Registration Form</h1>
+
+<form name='registration' onSubmit="return formValidation();">
+<ui>
+<li><label id="username">Name:</label></li>
+<li><input type="text" name="username" size="50" /></li>
+<li><label id="gender">Sex:</label></li>
+<li><input type="radio" name="msex" value="Male" /><span>Male</span></li>
+<li><input type="radio" name="fsex" value="Female" /><span>Female</span></li>
+<li><label>Education:</label></li>
+<li><input type="checkbox" name="BS" value="BS" checked /><span>BS</span></li>
+<li><input type="checkbox" name="Masters" value="Masters" /><span>Masters</span></li>
+
+<li><input type="submit" name="submit" value="Submit" /></li>
+</ui>
+</form>
+</body>
+</html>
