@@ -7,4 +7,4 @@ def index(request):
     return render(request,"home.html",{})
 
 def detail(request, album_id):
-    return HttpResponse("<h2> Details fo0r a_id:"+ str(album_id)+"</h2>")
+    return HttpResponse("<h2> Details f66r a_id:"+ str(album_id)+"</h2>")
